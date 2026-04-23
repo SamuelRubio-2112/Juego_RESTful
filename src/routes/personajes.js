@@ -46,6 +46,32 @@ router.get('/:id/habilidades', (req, res) => {
   res.status(200).json(suyas);
 });
  
-// Implementa router.put('/:id', ...) y router.delete('/:id', ...).
- 
-module.exports = router;
+// router.put('/:id', ...)
+ router.put('/:id', (req, res) => {
+  const idPut = Number(req.params.id);
+  const personaje = personajes.findIndex(p => p.id === idPut);
+
+  if (personaje == -1){
+    return res.status(404).json({error: 'Personaje no encontrado'});
+  }
+
+  const personajeActualizado = {...personajes[personaje], ...req.body, id: idPut};
+
+  personajes.splice(personaje, 1, personajeActualizado);
+  res.status(200).json(personajeActualizado);
+ });
+
+ //router.delete('/:id', ...)
+router.delete('/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const personaje = personajes.findIndex(p => p.id === id);
+
+  if (personaje == -1){
+    return res.status(404).json({error: 'Personaje no encontrado'});
+  }
+
+  personajes.splice(personaje, 1)
+  res.status(204).send();
+});
+
+ module.exports = router;

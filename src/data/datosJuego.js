@@ -49,7 +49,7 @@ const habilidades = [
     incremento_estamina: 20,
   }
 ];
- 
+
 const personajes = [
   {
     id: 1,
