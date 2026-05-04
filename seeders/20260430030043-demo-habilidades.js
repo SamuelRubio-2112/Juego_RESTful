@@ -14,10 +14,10 @@ module.exports = {
       updatedAt: new Date()
     }));
 
-    await queryInterface.bulkInsert('Habilidades', habilidades);
+    await queryInterface.bulkInsert('Habilidads', habilidades);
     },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Habilidades', null, {});
+    await queryInterface.bulkDelete('Habilidads', null, {});
   }
 };

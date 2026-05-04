@@ -1,7 +1,22 @@
 const express = require('express');
 const { personajes, habilidades } = require('../data/datosJuego');
+const { Personaje, Habilidad } = require('../../models');
 const router = express.Router();
- 
+
+
+router.get('/', async (req, res, next) => {
+  try {
+    const personajes = await Personaje.findAll({
+      include: [{ model: Habilidad, through: { attributes: ['nivel'] } }], 
+    });
+    res.json(personajes);
+
+  } catch (err) {
+    next(err); // Si algo sale mal, envía el error al manejador global
+  }
+});
+
+
 // GET /api/personajes?nombre=&tipo=
 router.get('/', (req, res) => {
   const { nombre, tipo } = req.query;
