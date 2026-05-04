@@ -1,5 +1,5 @@
 const express = require('express');
-const { personajes, habilidades } = require('../data/datosJuego');
+//const { personajes, habilidades } = require('../data/datosJuego');
 const { Personaje, Habilidad } = require('../../models');
 const router = express.Router();
 

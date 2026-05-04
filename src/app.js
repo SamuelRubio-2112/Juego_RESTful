@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { sequelize } = require('../models');
 
-const personajesRouter = require('./routes/personajes11');
+const personajesRouter = require('./routes/personajes');
 const habilidadesRouter = require('./routes/habilidades');
  
 const app = express();
