@@ -75,11 +75,11 @@ router.put('/:id', async(req, res, next) => {
       return res.status(400).json({error: 'Campos incompletos. Todos los campos son obligatorios.'});
     }
 
-    await Personaje.update(
+    await personaje.update(
       {nombre, descripcion, ataque, defensa, estamina},
       {where: {id: id}}
     )
-
+    
     res.status(201).json(personaje);
   }
 
