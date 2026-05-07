@@ -1,5 +1,4 @@
 const express = require('express');
-const { personajes, habilidades } = require('../data/datosJuego');
 const router = express.Router();
 
 // GET /api/habilidades/{id}
