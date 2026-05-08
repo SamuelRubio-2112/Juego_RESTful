@@ -35,9 +35,6 @@ exports.getPersonajeById = async (req, res, next) => {
 exports.postPersonaje = async (req, res, next) => {
   try {
     const {nombre, descripcion, ataque, defensa, estamina, perfilId} = req.body;
-    if (!nombre || !descripcion || !ataque || !defensa || !estamina || !perfilId){
-      return res.status(400).json({error: 'Campos incompletos. Todos los campos son obligatorios.'});
-    }
 
     const perfil = await Perfil.findByPk(perfilId);
     if (!perfil){
@@ -65,10 +62,6 @@ exports.putPersonajeById = async (req, res, next) => {
       return res.status(404).json({error: 'Personaje no encontrado'});
     }
 
-    if (!nombre || !descripcion || !ataque || !defensa || !estamina){
-      return res.status(400).json({error: 'Campos incompletos. Todos los campos son obligatorios.'});
-    }
-
     await personaje.update(
       {nombre, descripcion, ataque, defensa, estamina},
       {where: {id: id}}
@@ -87,10 +80,6 @@ exports.postHabilidadInPersonaje = async (req, res, next) => {
   try {
     const personajeId = req.params.id;
     const {habilidadId, nivel} = req.body;
-
-    if (!personajeId || !habilidadId || !nivel){
-      return res.status(400).json({error: 'Todos los campos son obligatorios'});
-    }
 
     const personaje = await Personaje.findByPk(personajeId);
     if (!personaje) {
@@ -128,6 +117,16 @@ exports.postHabilidadInPersonaje = async (req, res, next) => {
 exports.deleteHabilidadFromPersonaje = async (req, res, next) => {
   try {
     const {idP, idH} = req.params;
+
+    const personaje = await Personaje.findByPk(idP);
+    if (!personaje){
+      return res.status(404).json({error: 'Personaje no encontrado'});
+    }
+
+    const habilidad = await Habilidad.findByPk(idH);
+    if (!habilidad){
+      return res.status(404).json({error: 'Habilidad no encontrado'});
+    }
 
     const relacion = await PersonajeHabilidad.findOne({
       where:{
