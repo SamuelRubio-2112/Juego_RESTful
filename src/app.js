@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const { sequelize } = require('../models');
 
+const requestLogger = require('./middlewares/requestLogger');
+const sanitizeIds = require('./middlewares/sanitizeIds');
+
 const personajesRouter = require('./routes/personajes');
 const habilidadesRouter = require('./routes/habilidades');
 const usuariosRouter = require('./routes/usuarios');
@@ -10,7 +13,10 @@ const app = express();
 const PORT = 3000;
  
 app.use(express.json());// parsea JSON en el body
- 
+
+app.use(requestLogger);
+//app.use(sanitizeIds);
+
 app.use('/api/personajes', personajesRouter);
 app.use('/api/habilidades', habilidadesRouter);
 app.use('/api/usuarios', usuariosRouter);
