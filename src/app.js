@@ -15,7 +15,7 @@ const PORT = 3000;
 app.use(express.json());// parsea JSON en el body
 
 app.use(requestLogger);
-//app.use(sanitizeIds);
+app.use(sanitizeIds);
 
 app.use('/api/personajes', personajesRouter);
 app.use('/api/habilidades', habilidadesRouter);
